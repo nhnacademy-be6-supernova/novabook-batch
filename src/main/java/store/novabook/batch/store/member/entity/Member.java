@@ -18,7 +18,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.novabook.store.user.member.dto.CreateMemberRequest;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -90,31 +89,5 @@ public class Member {
 		this.totalAmount = totalAmount;
 		this.authentication = authentication;
 		this.memberStatus = memberStatus;
-	}
-
-	public void update(String loginPassword, String name, String number, String email) {
-		this.loginPassword = loginPassword;
-		this.name = name;
-		this.number = number;
-		this.email = email;
-		this.updatedAt = LocalDateTime.now();
-	}
-
-	public void updateMemberStatus(MemberStatus memberStatus) {
-		this.memberStatus = memberStatus;
-	}
-
-	public static Member of(CreateMemberRequest createMemberRequest, MemberStatus memberStatus, LocalDateTime birth) {
-		return Member.builder()
-			.memberStatus(memberStatus)
-			.loginId(createMemberRequest.loginId())
-			.loginPassword(createMemberRequest.loginPassword())
-			.name(createMemberRequest.name())
-			.number(createMemberRequest.number())
-			.email(createMemberRequest.email())
-			.birth(birth)
-			.totalAmount(0L)
-			.latestLoginAt(LocalDateTime.now())
-			.build();
 	}
 }
