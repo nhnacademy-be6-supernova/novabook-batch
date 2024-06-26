@@ -61,9 +61,4 @@ public class Coupon {
 	public static Coupon of(CouponTemplate couponTemplate, CouponStatus status, LocalDateTime expirationAt) {
 		return Coupon.builder().couponTemplate(couponTemplate).status(status).expirationAt(expirationAt).build();
 	}
-
-	public void updateStatus(CouponStatus status) {
-		this.status = status;
-	}
-
 }

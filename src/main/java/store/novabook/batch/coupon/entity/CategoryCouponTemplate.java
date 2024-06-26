@@ -13,7 +13,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import store.novabook.coupon.coupon.dto.request.CreateCategoryCouponTemplateRequest;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
