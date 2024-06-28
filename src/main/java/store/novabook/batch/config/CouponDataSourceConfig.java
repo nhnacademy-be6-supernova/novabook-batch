@@ -22,13 +22,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "store.novabook.batch.coupon.repository", entityManagerFactoryRef = "couponEntityManagerFactory", transactionManagerRef = "couponTransactionManager")
 public class CouponDataSourceConfig {
 
-
 	@Primary
 	@Bean(name = "couponDataSource")
 	@ConfigurationProperties(prefix = "spring.datasource.coupon")
 	public DataSource couponDataSource() {
-		return DataSourceBuilder.create()
-			.build();
+		return DataSourceBuilder.create().build();
 	}
 
 	@Primary
@@ -42,9 +40,9 @@ public class CouponDataSourceConfig {
 		HashMap<String, Object> properties = new HashMap<>();
 		properties.put("hibernate.hbm2ddl.auto", "validate");
 		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-		properties.put("hibernate.physical_naming_strategy", "org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy");
+		properties.put("hibernate.physical_naming_strategy",
+			"org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy");
 		properties.put("hibernate.format_sql", true);
-
 		entityManagerFactory.setJpaPropertyMap(properties);
 		return entityManagerFactory;
 	}

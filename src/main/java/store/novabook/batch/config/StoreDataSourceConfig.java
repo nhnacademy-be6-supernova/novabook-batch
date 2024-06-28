@@ -18,18 +18,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(
-	basePackages = "store.novabook.batch.store.member.repository",
-	entityManagerFactoryRef = "storeEntityManagerFactory",
-	transactionManagerRef = "storeTransactionManager"
-)
+@EnableJpaRepositories(basePackages = "store.novabook.batch.store.member.repository", entityManagerFactoryRef = "storeEntityManagerFactory", transactionManagerRef = "storeTransactionManager")
 public class StoreDataSourceConfig {
 
 	@Bean(name = "storeDataSource")
 	@ConfigurationProperties(prefix = "spring.datasource.store")
 	public DataSource storeDataSource() {
-		return DataSourceBuilder.create()
-			.build();
+		return DataSourceBuilder.create().build();
 	}
 
 	@Bean(name = "storeEntityManagerFactory")
@@ -42,11 +37,10 @@ public class StoreDataSourceConfig {
 		HashMap<String, Object> properties = new HashMap<>();
 		properties.put("hibernate.hbm2ddl.auto", "validate");
 		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-		properties.put("hibernate.physical_naming_strategy", "org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy");
+		properties.put("hibernate.physical_naming_strategy",
+			"org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy");
 		properties.put("hibernate.format_sql", true);
-
 		entityManagerFactory.setJpaPropertyMap(properties);
-
 		return entityManagerFactory;
 	}
 
@@ -55,7 +49,7 @@ public class StoreDataSourceConfig {
 		@Qualifier("storeEntityManagerFactory") LocalContainerEntityManagerFactoryBean storeEntityManagerFactory) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(storeEntityManagerFactory.getObject());
-		return transactionManager;	}
-
+		return transactionManager;
+	}
 
 }
