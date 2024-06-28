@@ -1,4 +1,4 @@
-package store.novabook.batch.dto;
+package store.novabook.batch.coupon.dto;
 
 import java.util.List;
 

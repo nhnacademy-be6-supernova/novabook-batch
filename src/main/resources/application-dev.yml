@@ -1,30 +1,28 @@
 spring:
-  config:
-    activate:
-      on-profile: dev
   datasource:
     coupon:
-      url: jdbc:mysql://133.186.241.167:3306/be6_supernova_coupon_dev
+      jdbc-url: jdbc:mysql://133.186.241.167:3306/be6_supernova_coupon_dev
       username: be6_supernova
       password: Hv-]JRIyCw[[9O18
       driver-class-name: com.mysql.cj.jdbc.Driver
       type: org.apache.commons.dbcp2.BasicDataSource
     store:
-      url: jdbc:mysql://133.186.241.167:3306/be6_supernova_dev
+      jdbc-url: jdbc:mysql://133.186.241.167:3306/be6_supernova_dev
       username: be6_supernova
       password: Hv-]JRIyCw[[9O18
       driver-class-name: com.mysql.cj.jdbc.Driver
       type: org.apache.commons.dbcp2.BasicDataSource
-
-  jpa:
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
     hibernate:
       ddl-auto: validate
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
-
-
 
 logging:
   level:

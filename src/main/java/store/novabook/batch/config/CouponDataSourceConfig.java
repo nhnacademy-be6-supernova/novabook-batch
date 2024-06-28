@@ -1,10 +1,12 @@
 package store.novabook.batch.config;
 
-import java.util.Objects;
+import java.util.HashMap;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -15,38 +17,18 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(
-	basePackages = "store.novabook.batch.coupon.repository",
-	entityManagerFactoryRef = "couponEntityManagerFactory",
-	transactionManagerRef = "couponTransactionManager"
-)
+@EnableJpaRepositories(basePackages = "store.novabook.batch.coupon.repository", entityManagerFactoryRef = "couponEntityManagerFactory", transactionManagerRef = "couponTransactionManager")
 public class CouponDataSourceConfig {
 
-	@Value("${spring.datasource.coupon.url}")
-	private String couponDbUrl;
-
-	@Value("${spring.datasource.coupon.username}")
-	private String couponDbUsername;
-
-	@Value("${spring.datasource.coupon.password}")
-	private String couponDbPassword;
-
-	@Value("${spring.datasource.coupon.driver-class-name}")
-	private String couponDbDriverClassName;
 
 	@Primary
 	@Bean(name = "couponDataSource")
+	@ConfigurationProperties(prefix = "spring.datasource.coupon")
 	public DataSource couponDataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName(couponDbDriverClassName);
-		dataSource.setUrl(couponDbUrl);
-		dataSource.setUsername(couponDbUsername);
-		dataSource.setPassword(couponDbPassword);
-		return dataSource;
+		return DataSourceBuilder.create()
+			.build();
 	}
 
 	@Primary
@@ -57,6 +39,13 @@ public class CouponDataSourceConfig {
 		entityManagerFactory.setDataSource(dataSource);
 		entityManagerFactory.setPackagesToScan("store.novabook.batch.coupon.entity");
 		entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+		HashMap<String, Object> properties = new HashMap<>();
+		properties.put("hibernate.hbm2ddl.auto", "validate");
+		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+		properties.put("hibernate.physical_naming_strategy", "org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy");
+		properties.put("hibernate.format_sql", true);
+
+		entityManagerFactory.setJpaPropertyMap(properties);
 		return entityManagerFactory;
 	}
 
@@ -64,16 +53,8 @@ public class CouponDataSourceConfig {
 	@Bean(name = "couponTransactionManager")
 	public PlatformTransactionManager couponTransactionManager(
 		@Qualifier("couponEntityManagerFactory") LocalContainerEntityManagerFactoryBean couponEntityManagerFactory) {
-		return new JpaTransactionManager(Objects.requireNonNull(couponEntityManagerFactory.getObject()));
-	}
-
-	@Bean
-	public DataSource dataSource() {
-		return couponDataSource();
-	}
-
-	@Bean
-	public PlatformTransactionManager transactionManager() {
-		return couponTransactionManager(couponEntityManagerFactory(couponDataSource()));
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(couponEntityManagerFactory.getObject());
+		return transactionManager;
 	}
 }
