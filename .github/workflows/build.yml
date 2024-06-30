@@ -43,5 +43,5 @@ jobs:
           script_stop: true
           script: |
             chmod 755 ./batch/target/batch-0.0.1-SNAPSHOT.jar
-            fuser -k 8060/tcp
+            fuser -k 8060/tcp | true
             ./batch/startup.sh
