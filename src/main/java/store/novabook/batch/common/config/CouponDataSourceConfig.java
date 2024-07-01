@@ -5,8 +5,6 @@ import java.util.HashMap;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -22,12 +20,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "store.novabook.batch.coupon.repository", entityManagerFactoryRef = "couponEntityManagerFactory", transactionManagerRef = "couponTransactionManager")
 public class CouponDataSourceConfig {
 
-	@Primary
-	@Bean(name = "couponDataSource")
-	@ConfigurationProperties(prefix = "spring.datasource.coupon")
-	public DataSource couponDataSource() {
-		return DataSourceBuilder.create().build();
-	}
 
 	@Primary
 	@Bean(name = "couponEntityManagerFactory")
