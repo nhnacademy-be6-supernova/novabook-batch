@@ -69,7 +69,6 @@ public class Orders {
 	@NotNull
 	private String receiverNumber;
 
-	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 
