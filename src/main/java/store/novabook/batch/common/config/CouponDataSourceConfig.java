@@ -1,4 +1,4 @@
-package store.novabook.batch.config;
+package store.novabook.batch.common.config;
 
 import java.util.HashMap;
 
@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -18,21 +19,23 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "store.novabook.batch.store.member.repository", entityManagerFactoryRef = "storeEntityManagerFactory", transactionManagerRef = "storeTransactionManager")
-public class StoreDataSourceConfig {
+@EnableJpaRepositories(basePackages = "store.novabook.batch.coupon.repository", entityManagerFactoryRef = "couponEntityManagerFactory", transactionManagerRef = "couponTransactionManager")
+public class CouponDataSourceConfig {
 
-	@Bean(name = "storeDataSource")
-	@ConfigurationProperties(prefix = "spring.datasource.store")
-	public DataSource storeDataSource() {
+	@Primary
+	@Bean(name = "couponDataSource")
+	@ConfigurationProperties(prefix = "spring.datasource.coupon")
+	public DataSource couponDataSource() {
 		return DataSourceBuilder.create().build();
 	}
 
-	@Bean(name = "storeEntityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean storeEntityManagerFactory(
-		@Qualifier("storeDataSource") DataSource dataSource) {
+	@Primary
+	@Bean(name = "couponEntityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean couponEntityManagerFactory(
+		@Qualifier("couponDataSource") DataSource dataSource) {
 		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactory.setDataSource(dataSource);
-		entityManagerFactory.setPackagesToScan("store.novabook.batch.store.member.entity");
+		entityManagerFactory.setPackagesToScan("store.novabook.batch.coupon.entity");
 		entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		HashMap<String, Object> properties = new HashMap<>();
 		properties.put("hibernate.hbm2ddl.auto", "validate");
@@ -44,12 +47,12 @@ public class StoreDataSourceConfig {
 		return entityManagerFactory;
 	}
 
-	@Bean(name = "storeTransactionManager")
-	public PlatformTransactionManager storeTransactionManager(
-		@Qualifier("storeEntityManagerFactory") LocalContainerEntityManagerFactoryBean storeEntityManagerFactory) {
+	@Primary
+	@Bean(name = "couponTransactionManager")
+	public PlatformTransactionManager couponTransactionManager(
+		@Qualifier("couponEntityManagerFactory") LocalContainerEntityManagerFactoryBean couponEntityManagerFactory) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(storeEntityManagerFactory.getObject());
+		transactionManager.setEntityManagerFactory(couponEntityManagerFactory.getObject());
 		return transactionManager;
 	}
-
 }

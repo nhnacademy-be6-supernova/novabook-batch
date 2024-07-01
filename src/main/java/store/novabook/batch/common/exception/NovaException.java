@@ -1,4 +1,4 @@
-package store.novabook.batch.exception;
+package store.novabook.batch.common.exception;
 
 /**
  * 수수수수퍼노바 쿠폰 api에서 발생하는 모든 예외의 기본 추상 클래스입니다.

@@ -1,4 +1,4 @@
-package store.novabook.batch.store.member.entity;
+package store.novabook.batch.store.entity.orders;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,14 +20,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class MemberStatus {
-
+public class DeliveryFee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
-	private String name;
+	private long fee;
 
 	@NotNull
 	@CreatedDate
@@ -36,10 +34,4 @@ public class MemberStatus {
 
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
-
-	@Builder
-	public MemberStatus(String name) {
-		this.name = name;
-	}
-
 }
