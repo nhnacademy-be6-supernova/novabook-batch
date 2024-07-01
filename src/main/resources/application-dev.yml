@@ -12,6 +12,18 @@ spring:
       password: Hv-]JRIyCw[[9O18
       driver-class-name: com.mysql.cj.jdbc.Driver
       type: org.apache.commons.dbcp2.BasicDataSource
+    batch:
+      jdbc-url: jdbc:mysql://133.186.241.167:3306/be6_supernova_batch
+      username: be6_supernova
+      password: Hv-]JRIyCw[[9O18
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      type: org.apache.commons.dbcp2.BasicDataSource
+    dbcp2:
+      initial-size: 10
+      max-idle: 50
+      min-idle: 20
+      validation-query: SELECT 1
+      default-auto-commit: true
   batch:
     jdbc:
       initialize-schema: always
