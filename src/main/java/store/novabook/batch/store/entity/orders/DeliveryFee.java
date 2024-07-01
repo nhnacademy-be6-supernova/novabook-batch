@@ -28,7 +28,6 @@ public class DeliveryFee {
 	@NotNull
 	private long fee;
 
-	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 

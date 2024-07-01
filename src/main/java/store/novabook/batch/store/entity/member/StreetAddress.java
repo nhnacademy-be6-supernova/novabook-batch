@@ -33,7 +33,6 @@ public class StreetAddress {
 	@NotNull
 	private String streetAddress;
 
-	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 

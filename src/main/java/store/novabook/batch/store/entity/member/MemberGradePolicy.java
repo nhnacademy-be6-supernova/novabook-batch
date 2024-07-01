@@ -39,7 +39,6 @@ public class MemberGradePolicy {
 	@NotNull
 	private Long discountRate;
 
-	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 

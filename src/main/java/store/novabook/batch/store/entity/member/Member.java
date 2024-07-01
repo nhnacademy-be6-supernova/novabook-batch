@@ -55,7 +55,6 @@ public class Member {
 	@NotNull
 	private int authentication;
 
-	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 

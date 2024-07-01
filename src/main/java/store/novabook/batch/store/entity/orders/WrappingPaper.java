@@ -34,7 +34,6 @@ public class WrappingPaper {
 	@NotNull
 	private String status;
 
-	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 
