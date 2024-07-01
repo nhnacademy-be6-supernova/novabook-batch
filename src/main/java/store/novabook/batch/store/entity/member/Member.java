@@ -1,4 +1,4 @@
-package store.novabook.batch.store.member.entity;
+package store.novabook.batch.store.entity.member;
 
 import java.time.LocalDateTime;
 
@@ -53,12 +53,8 @@ public class Member {
 	private LocalDateTime latestLoginAt;
 
 	@NotNull
-	private Long totalAmount;
-
-	@NotNull
 	private int authentication;
 
-	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 
@@ -78,7 +74,6 @@ public class Member {
 		String email,
 		LocalDateTime birth,
 		LocalDateTime latestLoginAt,
-		Long totalAmount,
 		int authentication,
 		MemberStatus memberStatus) {
 		this.loginId = loginId;
@@ -88,7 +83,6 @@ public class Member {
 		this.email = email;
 		this.birth = birth;
 		this.latestLoginAt = latestLoginAt;
-		this.totalAmount = totalAmount;
 		this.authentication = authentication;
 		this.memberStatus = memberStatus;
 	}

@@ -1,4 +1,4 @@
-package store.novabook.batch.handler;
+package store.novabook.batch.common.handler;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -6,8 +6,8 @@ import org.springframework.web.context.request.WebRequest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import store.novabook.batch.exception.InformationException;
-import store.novabook.batch.exception.NovaException;
+import store.novabook.batch.common.exception.InformationException;
+import store.novabook.batch.common.exception.NovaException;
 
 @Slf4j
 @ControllerAdvice

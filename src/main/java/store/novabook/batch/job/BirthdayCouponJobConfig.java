@@ -31,12 +31,12 @@ import store.novabook.batch.coupon.entity.CouponTemplate;
 import store.novabook.batch.coupon.entity.CouponType;
 import store.novabook.batch.coupon.repository.CouponRepository;
 import store.novabook.batch.coupon.repository.CouponTemplateRepository;
-import store.novabook.batch.exception.ErrorCode;
-import store.novabook.batch.exception.InformationException;
-import store.novabook.batch.store.member.entity.Member;
-import store.novabook.batch.store.member.entity.MemberCoupon;
-import store.novabook.batch.store.member.repository.MemberCouponRepository;
-import store.novabook.batch.store.member.repository.MemberRepository;
+import store.novabook.batch.common.exception.ErrorCode;
+import store.novabook.batch.common.exception.InformationException;
+import store.novabook.batch.store.entity.member.Member;
+import store.novabook.batch.store.entity.member.MemberCoupon;
+import store.novabook.batch.store.repository.member.MemberCouponRepository;
+import store.novabook.batch.store.repository.member.MemberRepository;
 
 @Configuration
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package store.novabook.batch.exception;
+package store.novabook.batch.common.exception;
 
 /**
  * 다양한 오류 상태를 나타내는 열거형 클래스입니다. 각 오류 상태는 HTTP 상태 코드와 관련된 메시지를 포함합니다.
@@ -24,7 +24,8 @@ public enum ErrorCode {
 	NOT_ENOUGH_PERMISSION("해당 권한이 없습니다."),
 
 	BIRTHDAY_COUPON_NOT_FOUND("생일 쿠폰이 존재하지 않습니다. "),
-	JOB_FAIL_BIRTHDAY("생일 쿠폰 작업이 예기치 못한 이유로 중단되었습니다.");
+	JOB_FAIL_BIRTHDAY("생일 쿠폰 작업이 예기치 못한 이유로 중단되었습니다."),
+	JOB_FAIL_MEMBER_GRADE("분기별 회원들의 등급계산이 예기치 못한 이유로 중단되었습니다.");
 
 	private final String message;
 

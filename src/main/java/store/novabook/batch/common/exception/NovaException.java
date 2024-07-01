@@ -1,7 +1,7 @@
-package store.novabook.batch.exception;
+package store.novabook.batch.common.exception;
 
 /**
- * 수수수수퍼노바 쿠폰 api에서 발생하는 모든 예외의 기본 추상 클래스입니다.
+ * 슈퍼노바 쿠폰 api에서 발생하는 모든 예외의 기본 추상 클래스입니다.
  * 이 클래스는 특정 오류 코드를 포함하며, {@link RuntimeException}을 상속합니다.
  */
 public abstract class NovaException extends RuntimeException {

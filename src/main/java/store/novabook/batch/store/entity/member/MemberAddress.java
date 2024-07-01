@@ -1,4 +1,4 @@
-package store.novabook.batch.store.member.entity;
+package store.novabook.batch.store.entity.member;
 
 import java.time.LocalDateTime;
 
@@ -8,9 +8,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,16 +21,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
 @EntityListeners(AuditingEntityListener.class)
-public class MemberCoupon {
+public class MemberAddress {
 
 	@Id
-	private Long couponId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-	private LocalDateTime usedAt;
+	@NotBlank
+	private String nickname;
 
+	@NotBlank
+	private String memberAddressDetail;
+
+	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 
@@ -36,16 +45,23 @@ public class MemberCoupon {
 
 	@NotNull
 	@ManyToOne
+	@JoinColumn(name = "street_address_id")
+	private StreetAddress streetAddress;
+
+	@NotNull
+	@ManyToOne
 	@JoinColumn(name = "member_id")
 	private Member member;
 
 	@Builder
-	public MemberCoupon(Long couponId, Member member) {
-		this.couponId = couponId;
+	public MemberAddress(String nickname,
+		String memberAddressDetail,
+		StreetAddress streetAddress,
+		Member member) {
+		this.nickname = nickname;
+		this.memberAddressDetail = memberAddressDetail;
+		this.streetAddress = streetAddress;
 		this.member = member;
 	}
-
-	public void update(LocalDateTime usedAt) {
-		this.usedAt = usedAt;
-	}
 }
+

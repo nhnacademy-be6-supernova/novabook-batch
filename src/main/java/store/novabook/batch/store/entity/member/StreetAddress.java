@@ -1,4 +1,4 @@
-package store.novabook.batch.store.member.entity;
+package store.novabook.batch.store.entity.member;
 
 import java.time.LocalDateTime;
 
@@ -21,16 +21,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class MemberStatus {
+public class StreetAddress {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
-	private String name;
+	private String zipcode;
 
 	@NotNull
+	private String streetAddress;
+
 	@CreatedDate
 	private LocalDateTime createdAt;
 
@@ -38,8 +40,10 @@ public class MemberStatus {
 	private LocalDateTime updatedAt;
 
 	@Builder
-	public MemberStatus(String name) {
-		this.name = name;
+	public StreetAddress(String zipcode,
+		String streetAddress) {
+		this.zipcode = zipcode;
+		this.streetAddress = streetAddress;
 	}
 
 }

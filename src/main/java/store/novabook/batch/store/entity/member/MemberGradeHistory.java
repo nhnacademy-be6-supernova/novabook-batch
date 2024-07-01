@@ -1,4 +1,4 @@
-package store.novabook.batch.store.member.entity;
+package store.novabook.batch.store.entity.member;
 
 import java.time.LocalDateTime;
 
@@ -13,11 +13,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import store.novabook.batch.common.validator.ValidQuarter;
 
 @Getter
 @Entity
@@ -29,8 +31,9 @@ public class MemberGradeHistory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
-	private LocalDateTime quarter;
+	@NotBlank
+	@ValidQuarter
+	private String quarter;
 
 	@NotNull
 	@CreatedDate
@@ -53,7 +56,20 @@ public class MemberGradeHistory {
 	public MemberGradeHistory(Member member, MemberGradePolicy memberGradePolicy, LocalDateTime quarter) {
 		this.member = member;
 		this.memberGradePolicy = memberGradePolicy;
-		this.quarter = quarter;
+		this.quarter = getPreviousQuarterFromDateTime(quarter);
+	}
+
+	private String getPreviousQuarterFromDateTime(LocalDateTime dateTime) {
+		int year = dateTime.getYear();
+		int month = dateTime.getMonthValue();
+
+		int previousQuarter = ((month - 1) / 3);
+		if (previousQuarter == 0) {
+			previousQuarter = 4;
+			year -= 1;
+		}
+
+		return String.format("%dQ%d", year, previousQuarter);
 	}
 
 }
