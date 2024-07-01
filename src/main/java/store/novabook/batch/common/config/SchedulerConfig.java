@@ -32,7 +32,7 @@ public class SchedulerConfig {
 		}
 	}
 
-	@Scheduled(cron = "0 * * * * ?")
+	@Scheduled(cron = "0 0 0 1 1,4,7,10 ?")
 	public void runQuarterlyMemberGradeJob() {
 		try {
 			jobLauncher.run(quarterlyMemberGradeJob,
