@@ -90,7 +90,6 @@ public class QuarterlyMemberGradeJobConfig {
 				endOfQuarter);
 			MemberGradePolicy applicablePolicy = findApplicablePolicy(policyList, totalOrderAmount);
 
-
 			return MemberGradeHistory.builder()
 				.member(member)
 				.memberGradePolicy(applicablePolicy)

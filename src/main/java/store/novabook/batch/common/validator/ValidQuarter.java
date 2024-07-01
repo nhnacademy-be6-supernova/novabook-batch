@@ -9,10 +9,12 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 @Constraint(validatedBy = QuarterValidator.class)
-@Target({ ElementType.METHOD, ElementType.FIELD })
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidQuarter {
-    String message() default "유효하지 않은 분기 형식입니다. 올바른 형식: YYYYQn (e.g., 2023Q1)";
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
+	String message() default "유효하지 않은 분기 형식입니다. 올바른 형식: YYYYQn (e.g., 2023Q1)";
+
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
 }
