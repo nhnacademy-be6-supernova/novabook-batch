@@ -43,11 +43,9 @@ public class KeyManagerUtil {
 
 		HttpEntity<String> entity = new HttpEntity<>(headers);
 
-		log.info("baseurl: {}", baseUrl);
 		ResponseEntity<Map<String, Object>> response = restTemplate.exchange(baseUrl, HttpMethod.GET, entity,
 			new ParameterizedTypeReference<Map<String, Object>>() {
 			});
-		log.info("response: {}",response);
 
 		DatabaseConfigDto config = null;
 		if (response.getStatusCode().is2xxSuccessful()) {
