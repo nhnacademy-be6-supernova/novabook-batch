@@ -26,14 +26,6 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
 
-store:
-  service:
-    url: http://localhost:8090
-
-coupon:
-  service:
-    url: http://localhost:8070
-
 
 nhn:
   cloud:
