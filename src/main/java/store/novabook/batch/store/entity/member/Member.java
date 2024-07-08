@@ -86,4 +86,8 @@ public class Member {
 		this.authentication = authentication;
 		this.memberStatus = memberStatus;
 	}
+
+	public void setMemberStatus(MemberStatus memberStatus) {
+		this.memberStatus = memberStatus;
+	}
 }
