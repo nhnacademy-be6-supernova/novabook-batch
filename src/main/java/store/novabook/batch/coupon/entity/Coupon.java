@@ -45,6 +45,7 @@ public class Coupon {
 	@NotNull
 	private LocalDateTime expirationAt;
 
+
 	@CreatedDate
 	private LocalDateTime createdAt;
 
