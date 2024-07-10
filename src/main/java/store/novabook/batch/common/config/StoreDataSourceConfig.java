@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "store.novabook.batch.store.repository", entityManagerFactoryRef = "storeEntityManagerFactory", transactionManagerRef = "storeTransactionManager")
 public class StoreDataSourceConfig {
 
-
 	@Bean(name = "storeEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean storeEntityManagerFactory(
 		@Qualifier("storeDataSource") DataSource dataSource) {

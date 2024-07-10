@@ -22,10 +22,12 @@ public enum ErrorCode {
 
 	// 403
 	NOT_ENOUGH_PERMISSION("해당 권한이 없습니다."),
+	NOT_FOUND_MEMBER_STATUS("회원 상태에 대한 정보를 가져올 수 없습니다."),
 
 	BIRTHDAY_COUPON_NOT_FOUND("생일 쿠폰이 존재하지 않습니다. "),
 	JOB_FAIL_BIRTHDAY("생일 쿠폰 작업이 예기치 못한 이유로 중단되었습니다."),
-	JOB_FAIL_MEMBER_GRADE("분기별 회원들의 등급계산이 예기치 못한 이유로 중단되었습니다.");
+	JOB_FAIL_MEMBER_GRADE("분기별 회원들의 등급계산이 예기치 못한 이유로 중단되었습니다."),
+	JOB_FAIL_MEMBER_STATUS_UPDATE("회원 상태를 휴면으로 변경하는 작업이 예기치 못한 이유로 중단되었습니다. ");
 
 	private final String message;
 
