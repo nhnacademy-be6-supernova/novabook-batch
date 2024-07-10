@@ -6,11 +6,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
@@ -33,6 +35,7 @@ import store.novabook.batch.coupon.repository.CouponRepository;
 import store.novabook.batch.coupon.repository.CouponTemplateRepository;
 import store.novabook.batch.common.exception.ErrorCode;
 import store.novabook.batch.common.exception.InformationException;
+import store.novabook.batch.job.listner.LogJobExecutionListener;
 import store.novabook.batch.store.entity.member.Member;
 import store.novabook.batch.store.entity.member.MemberCoupon;
 import store.novabook.batch.store.repository.member.MemberCouponRepository;
@@ -52,6 +55,7 @@ public class BirthdayCouponJobConfig {
 	public Job birthdayCouponJob(@Qualifier("birthdayCouponStep") Step birthdayCouponStep) {
 		return new JobBuilder("birthdayCouponJob", jobRepository).incrementer(new RunIdIncrementer())
 			.start(birthdayCouponStep)
+			.listener(new LogJobExecutionListener())
 			.build();
 	}
 
