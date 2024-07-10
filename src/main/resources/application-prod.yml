@@ -29,7 +29,7 @@ logging:
   #로그 크러쉬 정보
   logstash:
     host: 133.186.241.167
-    platform: NovaBook-Batch-Dev
+    platform: NovaBook-Batch-Prod
     url: https://api-logncrash.cloud.toast.com/v2/log
     projectName: Xyx7DoyszcG66ULx
     projectVersion: 1.0.0
