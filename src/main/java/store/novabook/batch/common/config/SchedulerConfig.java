@@ -21,6 +21,7 @@ public class SchedulerConfig {
 	private final JobLauncher jobLauncher;
 	private final Job birthdayCouponJob;
 	private final Job quarterlyMemberGradeJob;
+	private final Job memberStatusUpdateJob;
 
 	@Scheduled(cron = "0 0 0 1 * ?")
 	public void runBirthdayCouponJob() {
@@ -39,6 +40,16 @@ public class SchedulerConfig {
 				new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters());
 		} catch (Exception e) {
 			throw new CriticalException(ErrorCode.JOB_FAIL_MEMBER_GRADE);
+		}
+	}
+
+	@Scheduled(cron = "0 0 0 * * ?")
+	public void runMemberStatusUpdateJob() {
+		try {
+			jobLauncher.run(memberStatusUpdateJob,
+				new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters());
+		} catch (Exception e) {
+			throw new CriticalException(ErrorCode.JOB_FAIL_MEMBER_STATUS_UPDATE);
 		}
 	}
 }

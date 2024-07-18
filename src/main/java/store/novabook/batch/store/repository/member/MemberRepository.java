@@ -1,5 +1,7 @@
 package store.novabook.batch.store.repository.member;
 
+import java.time.LocalDateTime;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +17,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 		Pageable pageable);
 
 	Page<Member> findByMemberStatusId(Long memberStatusId, Pageable pageable);
+
+	Page<Member> findAllByLatestLoginAtBefore(LocalDateTime latestLoginAt, Pageable pageable);
 }
