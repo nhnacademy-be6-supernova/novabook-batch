@@ -1,4 +1,4 @@
-package store.novabook.batch.store.entity.member;
+package store.novabook.batch.store.entity.book;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,8 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class MemberGradePolicy {
-
+public class BookStatus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -30,31 +28,9 @@ public class MemberGradePolicy {
 	@NotNull
 	private String name;
 
-	@NotNull
-	private Long minRange;
-
-	@NotNull
-	private Long maxRange;
-
-	@NotNull
-	private Long saveRate;
-
-	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
-
-	@Builder
-	public MemberGradePolicy(String name,
-		Long minRange,
-		Long maxRange,
-		Long saveRate) {
-		this.name = name;
-		this.minRange = minRange;
-		this.maxRange = maxRange;
-		this.saveRate = saveRate;
-	}
-
 }

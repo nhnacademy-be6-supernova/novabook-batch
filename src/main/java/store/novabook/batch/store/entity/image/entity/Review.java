@@ -1,4 +1,4 @@
-package store.novabook.batch.store.entity.member;
+package store.novabook.batch.store.entity.image.entity;
 
 import java.time.LocalDateTime;
 
@@ -11,50 +11,47 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import store.novabook.batch.store.entity.orders.OrdersBook;
 
+/**
+ * 리뷰 정보를 저장하는 엔티티 클래스.
+ * 주문과 책에 대한 리뷰를 관리한다.
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class MemberGradePolicy {
+public class Review {
 
+	/** 리뷰의 고유 ID. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	/** 리뷰가 참조하는 주문 객체. */
 	@NotNull
-	private String name;
+	@ManyToOne
+	@JoinColumn(name = "orders_book_id")
+	OrdersBook ordersBook;
 
+	/** 리뷰 내용. */
 	@NotNull
-	private Long minRange;
+	private String content;
 
+	/** 리뷰 점수. */
 	@NotNull
-	private Long maxRange;
+	private int score;
 
-	@NotNull
-	private Long saveRate;
-
-	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
-
-	@Builder
-	public MemberGradePolicy(String name,
-		Long minRange,
-		Long maxRange,
-		Long saveRate) {
-		this.name = name;
-		this.minRange = minRange;
-		this.maxRange = maxRange;
-		this.saveRate = saveRate;
-	}
 
 }

@@ -1,7 +1,5 @@
 package store.novabook.batch.common.util;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -9,8 +7,6 @@ import java.util.Optional;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
@@ -23,10 +19,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import store.novabook.batch.common.dto.DatabaseConfigDto;
+import store.novabook.batch.common.dto.ElasticSearchConfigDto;
 
 public class KeyManagerUtil {
 	private static final ObjectMapper objectMapper = new ObjectMapper();
-	private static final Logger log = LoggerFactory.getLogger(KeyManagerUtil.class);
 
 	private KeyManagerUtil() {
 	}
@@ -64,6 +60,7 @@ public class KeyManagerUtil {
 
 					// JSON 문자열을 DTO로 변환
 					try {
+
 						config = objectMapper.readValue(secretJson, DatabaseConfigDto.class);
 					} catch (JsonProcessingException e) {
 						throw new RuntimeException(e);
@@ -94,5 +91,43 @@ public class KeyManagerUtil {
 			Boolean.parseBoolean(environment.getProperty("spring.datasource.dbcp2.default-auto-commit")));
 		return dataSource;
 	}
+
+	private static String getElasticSearchDataSource(Environment environment, String keyId) {
+		String appkey = environment.getProperty("nhn.cloud.keyManager.appkey");
+		String userId = environment.getProperty("nhn.cloud.keyManager.userAccessKey");
+		String secretKey = environment.getProperty("nhn.cloud.keyManager.secretAccessKey");
+
+		RestTemplate restTemplate = new RestTemplate();
+		String baseUrl = "https://api-keymanager.nhncloudservice.com/keymanager/v1.2/appkey/{appkey}/secrets/{keyid}";
+		String url = baseUrl.replace("{appkey}", appkey).replace("{keyid}", keyId);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("X-TC-AUTHENTICATION-ID", userId);
+		headers.set("X-TC-AUTHENTICATION-SECRET", secretKey);
+
+		HttpEntity<String> entity = new HttpEntity<>(headers);
+
+		ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
+			url,
+			HttpMethod.GET,
+			entity,
+			new ParameterizedTypeReference<Map<String, Object>>() {
+			}
+		);
+
+		Map<String, String> body = (Map<String, String>)response.getBody().get("body");
+
+		return body.get("secret");
+	}
+
+	public static ElasticSearchConfigDto getElasticSearchConfig(Environment environment) {
+		try {
+			String keyid = environment.getProperty("nhn.cloud.keyManager.elasticSearchKeyId");
+			return objectMapper.readValue(getElasticSearchDataSource(environment, keyid), ElasticSearchConfigDto.class);
+		} catch (JsonProcessingException e) {
+			//오류처리
+			throw new RuntimeException(e);
+		}
+	}
+
 
 }

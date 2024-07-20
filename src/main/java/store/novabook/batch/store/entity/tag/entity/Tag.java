@@ -1,4 +1,4 @@
-package store.novabook.batch.store.entity.member;
+package store.novabook.batch.store.entity.tag.entity;
 
 import java.time.LocalDateTime;
 
@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -21,23 +22,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class MemberGradePolicy {
-
+public class Tag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
+	@Column(unique = true)
 	private String name;
-
-	@NotNull
-	private Long minRange;
-
-	@NotNull
-	private Long maxRange;
-
-	@NotNull
-	private Long saveRate;
 
 	@NotNull
 	@CreatedDate
@@ -47,14 +39,13 @@ public class MemberGradePolicy {
 	private LocalDateTime updatedAt;
 
 	@Builder
-	public MemberGradePolicy(String name,
-		Long minRange,
-		Long maxRange,
-		Long saveRate) {
+	public Tag(String name) {
 		this.name = name;
-		this.minRange = minRange;
-		this.maxRange = maxRange;
-		this.saveRate = saveRate;
+		this.createdAt = LocalDateTime.now();
 	}
 
+	public void update(String name) {
+		this.name = name;
+		this.updatedAt = LocalDateTime.now();
+	}
 }
