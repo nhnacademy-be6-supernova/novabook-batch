@@ -29,6 +29,13 @@ public enum ErrorCode {
 	JOB_FAIL_MEMBER_GRADE("분기별 회원들의 등급계산이 예기치 못한 이유로 중단되었습니다."),
 	JOB_FAIL_ELASTIC_SEARCH_UPDATE("엘라스틱 서치 업데이트 작업이 예기치 못한 이유로 중단되었습니다."),
 	JOB_FAIL_MEMBER_STATUS_UPDATE("회원 상태를 휴면으로 변경하는 작업이 예기치 못한 이유로 중단되었습니다. ");
+	JOB_FAIL_MEMBER_STATUS_UPDATE("회원 상태를 휴면으로 변경하는 작업이 예기치 못한 이유로 중단되었습니다. "),
+
+
+	FAILED_CONVERSION("Dto로 변환 하는데 실패했습니다."),
+	RESPONSE_BODY_IS_NULL("키매니저의 response body가 null입니다."),
+	MISSING_BODY_KEY("응답 본문에 \"body\" 키가 누락되었습니다."),
+	MISSING_SECRET_KEY("응답 본문에 \"secret\" 키가 누락되었습니다.");
 
 	private final String message;
 
