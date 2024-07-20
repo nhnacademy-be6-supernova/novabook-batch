@@ -28,7 +28,6 @@ public enum ErrorCode {
 	JOB_FAIL_BIRTHDAY("생일 쿠폰 작업이 예기치 못한 이유로 중단되었습니다."),
 	JOB_FAIL_MEMBER_GRADE("분기별 회원들의 등급계산이 예기치 못한 이유로 중단되었습니다."),
 	JOB_FAIL_ELASTIC_SEARCH_UPDATE("엘라스틱 서치 업데이트 작업이 예기치 못한 이유로 중단되었습니다."),
-	JOB_FAIL_MEMBER_STATUS_UPDATE("회원 상태를 휴면으로 변경하는 작업이 예기치 못한 이유로 중단되었습니다. ");
 	JOB_FAIL_MEMBER_STATUS_UPDATE("회원 상태를 휴면으로 변경하는 작업이 예기치 못한 이유로 중단되었습니다. "),
 
 
