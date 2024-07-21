@@ -41,5 +41,4 @@ public class MemberStatus {
 	public MemberStatus(String name) {
 		this.name = name;
 	}
-
 }

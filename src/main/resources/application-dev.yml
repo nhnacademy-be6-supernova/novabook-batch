@@ -21,8 +21,10 @@ spring:
   batch:
     jdbc:
       initialize-schema: never
+
     job:
       enabled: false
+
 
 
 
