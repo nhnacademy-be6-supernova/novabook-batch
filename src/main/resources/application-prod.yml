@@ -15,6 +15,7 @@ spring:
       initialize-schema: always
     job:
       enabled: false
+  jpa:
     hibernate:
       ddl-auto: validate
     properties:
