@@ -3,12 +3,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: org.apache.commons.dbcp2.BasicDataSource
     dbcp2:
-      initial-size: 2
-      max-idle: 8
-      min-idle: 2
+      initial-size: 1
+      max-idle: 2
+      min-idle: 1
       validation-query: SELECT 1
       default-auto-commit: true
-      max-total: 8
+      max-total: 2
 
   jpa:
     properties:
