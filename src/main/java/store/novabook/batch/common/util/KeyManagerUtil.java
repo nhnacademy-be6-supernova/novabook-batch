@@ -9,8 +9,6 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
@@ -22,12 +20,12 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
 import store.novabook.batch.common.dto.DatabaseConfigDto;
 import store.novabook.batch.common.exception.KeyManagerException;
-
+@Slf4j
 public class KeyManagerUtil {
 	private static final ObjectMapper objectMapper = new ObjectMapper();
-	private static final Logger log = LoggerFactory.getLogger(KeyManagerUtil.class);
 
 	private KeyManagerUtil() {
 	}
@@ -99,8 +97,6 @@ public class KeyManagerUtil {
 
 		String result = (String)body.get("secret");
 		if (result == null || result.isEmpty()) {
-			log.error("\"secret\" key is missing or empty in response body");
-			log.error("{}", body);
 			throw new KeyManagerException(MISSING_SECRET_KEY);
 		}
 

@@ -9,6 +9,12 @@ spring:
       validation-query: SELECT 1
       default-auto-commit: true
 
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
   batch:
     jdbc:
       initialize-schema: always
@@ -20,6 +26,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+
+
 
 logging:
   level:
@@ -46,5 +54,13 @@ nhn:
       storeKeyId: e0a81fc89a1d4c5196df53d3fdab0f64
       couponKeyId: 62954fd4bba04501a7059459ae11a56d
       batchKeyId: 96363c48ca6f4fe186cb7b3a144165f0
+      elasticSearchKeyId : dd75e1de58f24239b6d249cdc1faff0c
       userAccessKeyId: J9VxQFQEsmerR1n7FeJ6
       secretAccessKey: zZEVopUHt6dxgRMt
+      userAccessKey: J9VxQFQEsmerR1n7FeJ6
+
+
+  output:
+    ansi:
+      enabled: always
+

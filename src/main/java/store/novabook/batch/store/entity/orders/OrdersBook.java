@@ -1,4 +1,4 @@
-package store.novabook.batch.store.entity.member;
+package store.novabook.batch.store.entity.orders;
 
 import java.time.LocalDateTime;
 
@@ -11,33 +11,38 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import store.novabook.batch.store.entity.book.Book;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class MemberGradePolicy {
-
+public class OrdersBook {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
-	private String name;
+	@ManyToOne
+	@JoinColumn(name = "orders_id")
+	private Orders orders;
 
 	@NotNull
-	private Long minRange;
+	@ManyToOne
+	@JoinColumn(name = "book_id")
+	private Book book;
 
 	@NotNull
-	private Long maxRange;
+	private int quantity;
 
 	@NotNull
-	private Long saveRate;
+	private long price;
 
 	@NotNull
 	@CreatedDate
@@ -45,16 +50,4 @@ public class MemberGradePolicy {
 
 	@LastModifiedDate
 	private LocalDateTime updatedAt;
-
-	@Builder
-	public MemberGradePolicy(String name,
-		Long minRange,
-		Long maxRange,
-		Long saveRate) {
-		this.name = name;
-		this.minRange = minRange;
-		this.maxRange = maxRange;
-		this.saveRate = saveRate;
-	}
-
 }

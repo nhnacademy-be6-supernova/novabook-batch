@@ -1,4 +1,4 @@
-package store.novabook.batch.store.entity.member;
+package store.novabook.batch.store.entity.image.entity;
 
 import java.time.LocalDateTime;
 
@@ -11,33 +11,34 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class MemberGradePolicy {
-
+public class ReviewImage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@ManyToOne
 	@NotNull
-	private String name;
+	@JoinColumn(name = "review_id")
+	private Review review;
 
+	@OneToOne
 	@NotNull
-	private Long minRange;
-
-	@NotNull
-	private Long maxRange;
-
-	@NotNull
-	private Long saveRate;
+	@JoinColumn(name = "image_id")
+	private Image image;
 
 	@NotNull
 	@CreatedDate
@@ -47,14 +48,13 @@ public class MemberGradePolicy {
 	private LocalDateTime updatedAt;
 
 	@Builder
-	public MemberGradePolicy(String name,
-		Long minRange,
-		Long maxRange,
-		Long saveRate) {
-		this.name = name;
-		this.minRange = minRange;
-		this.maxRange = maxRange;
-		this.saveRate = saveRate;
+	public ReviewImage(Review review, Image image) {
+		this.review = review;
+		this.image = image;
+	}
+
+	public static ReviewImage of(Review review, Image image) {
+		return ReviewImage.builder().review(review).image(image).build();
 	}
 
 }
