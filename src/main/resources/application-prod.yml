@@ -4,11 +4,11 @@ spring:
     type: org.apache.commons.dbcp2.BasicDataSource
     dbcp2:
       initial-size: 1
-      max-idle: 6
+      max-idle: 2
       min-idle: 1
       validation-query: SELECT 1
       default-auto-commit: true
-      max-total: 6
+      max-total: 2
 
   batch:
     jdbc:
