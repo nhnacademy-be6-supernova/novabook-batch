@@ -23,7 +23,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import store.novabook.batch.common.dto.DatabaseConfigDto;
-import store.novabook.batch.common.exception.ErrorCode;
 import store.novabook.batch.common.exception.KeyManagerException;
 
 public class KeyManagerUtil {
