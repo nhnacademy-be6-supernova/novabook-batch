@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
+import org.springframework.web.client.RestTemplate;
+
 import lombok.RequiredArgsConstructor;
 import store.novabook.batch.common.util.KeyManagerUtil;
 
@@ -20,7 +22,8 @@ public class DataSourceConfig {
 	@Bean(name = "storeDataSource")
 	public DataSource storeDataSource() {
 		String keyid = environment.getProperty("nhn.cloud.keyManager.storeKeyId");
-		return KeyManagerUtil.getDataSource(environment, keyid);
+		RestTemplate restTemplate = new RestTemplate();
+		return KeyManagerUtil.getDataSource(environment, keyid, restTemplate);
 	}
 
 	@Primary
@@ -28,13 +31,15 @@ public class DataSourceConfig {
 	@ConfigurationProperties(prefix = "spring.datasource.coupon")
 	public DataSource couponDataSource() {
 		String keyid = environment.getProperty("nhn.cloud.keyManager.couponKeyId");
-		return KeyManagerUtil.getDataSource(environment, keyid);
+		RestTemplate restTemplate = new RestTemplate();
+		return KeyManagerUtil.getDataSource(environment, keyid, restTemplate);
 	}
 
 	@BatchDataSource
 	@Bean
 	public DataSource defaultDataSource() {
 		String keyid = environment.getProperty("nhn.cloud.keyManager.batchKeyId");
-		return KeyManagerUtil.getDataSource(environment, keyid);
+		RestTemplate restTemplate = new RestTemplate();
+		return KeyManagerUtil.getDataSource(environment, keyid, restTemplate);
 	}
 }

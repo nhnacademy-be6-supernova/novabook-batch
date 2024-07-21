@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import store.novabook.batch.common.dto.DatabaseConfigDto;
 import store.novabook.batch.common.exception.KeyManagerException;
+
 @Slf4j
 public class KeyManagerUtil {
 	private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -30,12 +31,11 @@ public class KeyManagerUtil {
 	private KeyManagerUtil() {
 	}
 
-	public static DataSource getDataSource(Environment environment, String keyId) {
+	public static DataSource getDataSource(Environment environment, String keyId, RestTemplate restTemplate) {
 
 		String appkey = environment.getProperty("nhn.cloud.keyManager.appkey");
 		String userId = environment.getProperty("nhn.cloud.keyManager.userAccessKeyId");
 		String secretKey = environment.getProperty("nhn.cloud.keyManager.secretAccessKey");
-		RestTemplate restTemplate = new RestTemplate();
 		String baseUrl =
 			"https://api-keymanager.nhncloudservice.com/keymanager/v1.2/appkey/" + appkey + "/secrets/" + keyId;
 		HttpHeaders headers = new HttpHeaders();
@@ -48,14 +48,7 @@ public class KeyManagerUtil {
 			new ParameterizedTypeReference<>() {
 			});
 
-		var body = getStringObjectMap(response);
-
-		String secretJson = (String)body.get("secret");
-		if (secretJson.isEmpty()) {
-			log.error("\"secret\" key is missing in responsxcle body");
-			log.error("{}", body);
-			throw new KeyManagerException(MISSING_BODY_KEY);
-		}
+		String secretJson = getStringObjectMap(response);
 
 		DatabaseConfigDto config = null;
 		try {
@@ -82,7 +75,7 @@ public class KeyManagerUtil {
 		return dataSource;
 	}
 
-	private static @NotNull Map<String, Object> getStringObjectMap(ResponseEntity<Map<String, Object>> response) {
+	private static String getStringObjectMap(ResponseEntity<Map<String, Object>> response) {
 		if (response.getBody() == null) {
 			throw new KeyManagerException(RESPONSE_BODY_IS_NULL);
 		}
@@ -96,11 +89,12 @@ public class KeyManagerUtil {
 		}
 
 		String result = (String)body.get("secret");
-		if (result == null || result.isEmpty()) {
+		if (Objects.isNull(result) || result.isEmpty()) {
+			log.error("\"secret\" key is missing or empty in response body");
+			log.error("{}", body);
 			throw new KeyManagerException(MISSING_SECRET_KEY);
 		}
-
-		return body;
+		return result;
 	}
 
 }
