@@ -15,18 +15,16 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+      ddl-auto: validate
 
   batch:
     jdbc:
-      initialize-schema: always
+      initialize-schema: never
+
     job:
       enabled: false
-    hibernate:
-      ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-    show-sql: true
+
 
 
 
