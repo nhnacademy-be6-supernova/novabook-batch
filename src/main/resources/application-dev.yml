@@ -3,11 +3,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: org.apache.commons.dbcp2.BasicDataSource
     dbcp2:
-      initial-size: 10
-      max-idle: 50
-      min-idle: 20
+      initial-size: 2
+      max-idle: 8
+      min-idle: 2
       validation-query: SELECT 1
       default-auto-commit: true
+      max-total: 8
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
 
   batch:
     jdbc:
@@ -22,6 +29,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
+
+
 
 logging:
   level:
@@ -48,5 +57,13 @@ nhn:
       storeKeyId: e0a81fc89a1d4c5196df53d3fdab0f64
       couponKeyId: 62954fd4bba04501a7059459ae11a56d
       batchKeyId: 96363c48ca6f4fe186cb7b3a144165f0
+      elasticSearchKeyId : dd75e1de58f24239b6d249cdc1faff0c
       userAccessKeyId: J9VxQFQEsmerR1n7FeJ6
       secretAccessKey: zZEVopUHt6dxgRMt
+      userAccessKey: J9VxQFQEsmerR1n7FeJ6
+
+
+  output:
+    ansi:
+      enabled: always
+

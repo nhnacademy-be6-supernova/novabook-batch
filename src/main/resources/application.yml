@@ -5,3 +5,32 @@ spring:
     active: dev
 server:
   port: 8060
+#
+#
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+
+  # Hibernate SQL 로그 레벨 설정
+  logging:
+    level:
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+
+
+---
+# mysql
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+# h2
+spring:
+  config:
+    activate:
+      on-profile: local

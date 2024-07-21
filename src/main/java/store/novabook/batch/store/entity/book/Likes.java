@@ -1,4 +1,4 @@
-package store.novabook.batch.store.entity.member;
+package store.novabook.batch.store.entity.book;
 
 import java.time.LocalDateTime;
 
@@ -11,35 +11,34 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import store.novabook.batch.store.entity.member.Member;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class MemberGradePolicy {
-
+public class Likes {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
-	private String name;
+	@ManyToOne
+	@JoinColumn(name = "book_id")
+	private Book book;
 
 	@NotNull
-	private Long minRange;
+	@ManyToOne
+	@JoinColumn(name = "member_id")
+	private Member member;
 
-	@NotNull
-	private Long maxRange;
-
-	@NotNull
-	private Long saveRate;
-
-	@NotNull
 	@CreatedDate
 	private LocalDateTime createdAt;
 
@@ -47,14 +46,12 @@ public class MemberGradePolicy {
 	private LocalDateTime updatedAt;
 
 	@Builder
-	public MemberGradePolicy(String name,
-		Long minRange,
-		Long maxRange,
-		Long saveRate) {
-		this.name = name;
-		this.minRange = minRange;
-		this.maxRange = maxRange;
-		this.saveRate = saveRate;
+	public Likes(Book book, Member member) {
+		this.book = book;
+		this.member = member;
 	}
 
+	public static Likes of(Book book, Member member) {
+		return Likes.builder().book(book).member(member).build();
+	}
 }
